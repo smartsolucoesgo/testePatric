@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Tempo de geração: 09-Dez-2022 às 20:19
+-- Tempo de geração: 10-Dez-2022 às 02:53
 -- Versão do servidor: 8.0.29
 -- versão do PHP: 8.0.19
 
@@ -33,6 +33,7 @@ CREATE TABLE `commitment` (
   `title_commitment` varchar(250) NOT NULL,
   `description_commitment` varchar(250) NOT NULL,
   `date_commitment` datetime NOT NULL,
+  `date_commitment_end` datetime DEFAULT NULL,
   `id_update_user` int DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -41,11 +42,12 @@ CREATE TABLE `commitment` (
 -- Extraindo dados da tabela `commitment`
 --
 
-INSERT INTO `commitment` (`id`, `id_user`, `title_commitment`, `description_commitment`, `date_commitment`, `id_update_user`, `created_at`) VALUES
-(1, 21, 'Tarefa 1', 'Essa é o compromisso nº 1', '2022-12-11 17:13:00', 21, '2022-12-09 17:14:04'),
-(2, 21, 'Tarefa 2', 'Essa é o compromisso nº 2', '2022-12-12 20:17:00', 21, '2022-12-09 17:14:23'),
-(3, 21, 'Tarefa 3', 'Essa é o compromisso nº 3', '2022-12-10 18:15:00', 21, '2022-12-09 17:14:49'),
-(4, 21, 'Tarefa 4', 'Essa é o compromisso nº 4', '2022-12-11 19:17:00', 21, '2022-12-09 17:15:14');
+INSERT INTO `commitment` (`id`, `id_user`, `title_commitment`, `description_commitment`, `date_commitment`, `date_commitment_end`, `id_update_user`, `created_at`) VALUES
+(3, 21, 'Tarefa 3', 'Essa é o compromisso nº 3', '2022-12-10 18:15:00', NULL, 21, '2022-12-09 17:14:49'),
+(6, 21, 'teste ', 'Sempre testando', '2022-12-09 21:00:00', NULL, 21, '2022-12-09 21:01:00'),
+(7, 21, 'Datas dinâmicas', 'Datas dinâmicas concluída', '2022-12-16 23:43:00', '2022-12-22 23:43:00', 21, '2022-12-09 23:44:21'),
+(8, 21, '2 dias', '2 dias testando', '2022-12-25 23:46:00', '2022-12-26 23:46:00', 21, '2022-12-09 23:46:33'),
+(9, 21, '2 dias', '2 dias testando', '2022-12-25 23:46:00', '2022-12-26 23:46:00', 21, '2022-12-09 23:47:02');
 
 -- --------------------------------------------------------
 
@@ -152,7 +154,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de tabela `commitment`
 --
 ALTER TABLE `commitment`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `configuracao`
