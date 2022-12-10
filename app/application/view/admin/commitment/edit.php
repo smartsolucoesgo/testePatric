@@ -33,6 +33,18 @@ require APP . 'view/admin/_templates/initFile.php';
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row">
+                            <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Data inicial <?= isset($response['date_commitment']) ? date("Y-m-d\TH:i", strtotime($response['date_commitment'])) : '' ?></label>
+                                        <input type="datetime-local" name="date_commitment" placeholder="" class="form-control telefone" value="<?= isset($response['date_commitment']) ? date("Y-m-d\TH:i", strtotime($response['date_commitment'])) : '' ?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Data final <?= isset($response['date_commitment_end']) ? date("Y-m-d\TH:i", strtotime($response['date_commitment_end'])) : '' ?></label>
+                                        <input type="datetime-local" name="date_commitment_end" placeholder="" class="form-control telefone" value="<?= isset($response['date_commitment_end']) ? date("Y-m-d\TH:i", strtotime($response['date_commitment_end'])) : '' ?>">
+                                    </div>
+                                </div>
                                 <div class="clearfix"></div>
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -40,13 +52,7 @@ require APP . 'view/admin/_templates/initFile.php';
                                         <input type="text" name="title_commitment" placeholder="" class="form-control" value="<?= isset($response['title_commitment']) ? $response['title_commitment'] : '' ?>" required>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Data da tarefa <?= isset($response['date_commitment']) ? date("Y-m-d\TH:i", strtotime($response['date_commitment'])) : '' ?></label>
-                                        <input type="datetime-local" name="date_commitment" placeholder="" class="form-control telefone" value="<?= isset($response['date_commitment']) ? date("Y-m-d\TH:i", strtotime($response['date_commitment'])) : '' ?>">
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
+                                
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Descrição da tarefa</label>

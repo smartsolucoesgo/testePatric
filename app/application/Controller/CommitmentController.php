@@ -15,7 +15,8 @@ class CommitmentController
     public function index()
     {
         $model = New Commitment();
-        $response = $model->showCommitment($this->table,'date_commitment DESC');
+        // $response = $model->showCommitment($this->table,'date_commitment DESC');
+        $response = $model->listEventCalendar();
         Helper::view($this->baseView.'/index',$response);
     }
 
@@ -37,10 +38,10 @@ class CommitmentController
     public function create()
     {
         $model = New Commitment();
-        $_POST['acesso'] = 'Empresa';
         $model->create($this->table,$_POST, ['id', 'acesso', 'id_update_user']);
         $response = $model->all('commitment','id', false, false, 'id');
-        Helper::view($this->baseView.'/index', $response);
+        // Helper::view($this->baseView.'/index', $response);
+        header('location: ' . URL_ADMIN .'/' .$this->urlIndex);
     }
 
     public function update()
