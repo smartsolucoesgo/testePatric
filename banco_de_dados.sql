@@ -102,6 +102,30 @@ INSERT INTO `user` (`id`, `acesso`, `nome`, `data_nascimento`, `cpf`, `rg`, `tel
 (21, 'Administrador', 'Administrador', '02/08/1992', '111.111.111-11', '11111', '(62) 9999-99999', 'Rua', '0', 'Ap 100', 'Residencial', '74000-000', 'Goiânia', 'GO', NULL, NULL, NULL, NULL, NULL, 'admin@admin.com', '$2y$12$ppFcsC0oV8Vja8iizu75be9/kYaKdKOblpjhk075mggFiI5qwNnK6', 'assets/img/avatar.jpg', NULL, '2020-06-10 01:04:39', '2020-08-11 22:35:26', 21, 1);
 COMMIT;
 
+-- Estrutura da tabela `compromisso`
+
+CREATE TABLE `compromisso` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `nome` mediumtext NOT NULL,
+  `descricao` text DEFAULT NULL,
+  `data_compromisso` date NOT NULL,
+  `data_criacao` date DEFAULT NULL,
+  `data_alteracao` date DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `compromisso_FK` (`user_id`),
+  CONSTRAINT `compromisso_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=In
+
+--
+-- Extraindo dados da tabela `compromisso`
+--
+
+INSERT INTO jube.compromisso
+(user_id, nome, descricao, data_compromisso, data_criacao, data_alteracao, id)
+VALUES(21, 'teste ', 'teste desc', '2023-01-05', '2023-12-01', '2023-12-01', 1);
+
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

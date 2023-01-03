@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title><?= APP_TITLE . $title ?></title>
+    <title>Compromissos</title>
 
     <link href="/assets/admin/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/admin/font-awesome/css/all.css" rel="stylesheet">
@@ -98,144 +98,174 @@
             </div>
             <div class="wrapper wrapper-content">
                 <div class="row animated fadeInDown">
-                    <div class="col-lg-10">
+                    <div class="col-lg-4">
                         <div class="ibox float-e-margins">
-                            <div class="ibox-content">
-                                <div id="calendar"></div>
+                            <div class="ibox-content" style="">
+                                <div id="external-events">
+                                    <a class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal">Novo Compromisso</a>
+                                    <div id='external-events-list'>
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nome</th>
+                                                    <th>Descrição </th>
+                                                    <th>Data</th>
+                                                    <th>Horario</th>
+                                                    <th>Ação</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                foreach ((array)$response as $compromisso) :
+                                                ?>
+                                                    <tr>
+                                                        <td><?= $compromisso['nome'] ?></td>
+                                                        <td><?=$compromisso['descricao']?></td>
+                                                        <td><?=$compromisso['data_compromisso']?></td>
+                                                        <td><?=$compromisso['horario']?></td>
+                                                        <td>
+                                                            <a href="<?= URL_ADMIN ?>/calendario/editar/<?= $compromisso['id'] ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+                                                            <a href="<?= URL_ADMIN ?>/calendario/excluir/<?= $compromisso['id'] ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                                                    </tr>
+                                                <?php
+                                                endforeach;
+                                                ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-8">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-content">
+                                    <div id="calendar"></div>
+                                </div>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Mainly scripts -->
-    <script src="/assets/admin/js/plugins/fullcalendar/moment.min.js"></script>
-    <script src="/assets/admin/js/bootstrap.min.js"></script>
-    <script src="/assets/admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="/assets/admin/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+        <!-- Mainly scripts -->
+        <script src="/assets/admin/js/plugins/fullcalendar/moment.min.js"></script>
+        <script src="/assets/admin/js/bootstrap.min.js"></script>
+        <script src="/assets/admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+        <script src="/assets/admin/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-    <!-- Custom and plugin javascript -->
-    <script src="/assets/admin/js/inspinia.js"></script>
-    <script src="/assets/admin/js/plugins/pace/pace.min.js"></script>
-
-
-    <!-- Custom and plugin javascript -->
-
-    <!-- jQuery UI  -->
-    <script src="/assets/admin/js/plugins/jquery-ui/jquery-ui.min.js"></script>
-
-    <!-- iCheck -->
-    <script src="/assets/admin/js/plugins/iCheck/icheck.min.js"></script>
-
-    <!-- Full Calendar -->
-    <script src="/assets/admin/js/plugins/fullcalendar/fullcalendar.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-
-            $('.i-checks').iCheck({
-                checkboxClass: 'icheckbox_square-green',
-                radioClass: 'iradio_square-green'
-            });
-
-            /* initialize the external events
-             -----------------------------------------------------------------*/
+        <!-- Custom and plugin javascript -->
+        <script src="/assets/admin/js/inspinia.js"></script>
+        <script src="/assets/admin/js/plugins/pace/pace.min.js"></script>
 
 
-            $('#external-events div.external-event').each(function() {
+        <!-- Custom and plugin javascript -->
 
-                // store data so the calendar knows to render an event upon drop
-                $(this).data('event', {
-                    title: $.trim($(this).text()), // use the element's text as the event title
-                    stick: true // maintain when user navigates (see docs on the renderEvent method)
+        <!-- jQuery UI  -->
+        <script src="/assets/admin/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+
+        <!-- iCheck -->
+        <script src="/assets/admin/js/plugins/iCheck/icheck.min.js"></script>
+
+        <!-- Full Calendar -->
+        <script src="/assets/admin/js/plugins/fullcalendar/fullcalendar.min.js"></script>
+
+        <script>
+            $(document).ready(function() {
+
+                $('.i-checks').iCheck({
+                    checkboxClass: 'icheckbox_square-green',
+                    radioClass: 'iradio_square-green'
                 });
 
-                // make the event draggable using jQuery UI
-                $(this).draggable({
-                    zIndex: 1111999,
-                    revert: true, // will cause the event to go back to its
-                    revertDuration: 0 //  original position after the drag
+                /* initialize the external events
+                 -----------------------------------------------------------------*/
+
+
+                $('#external-events div.external-event').each(function() {
+
+                    // store data so the calendar knows to render an event upon drop
+                    $(this).data('event', {
+                        title: $.trim($(this).text()), // use the element's text as the event title
+                        stick: true // maintain when user navigates (see docs on the renderEvent method)
+                    });
+
+                    // make the event draggable using jQuery UI
+                    $(this).draggable({
+                        zIndex: 1111999,
+                        revert: true, // will cause the event to go back to its
+                        revertDuration: 0 //  original position after the drag
+                    });
+
                 });
 
+
+                /* initialize the calendar
+                 -----------------------------------------------------------------*/
+                var date = new Date();
+                var d = date.getDate();
+                var m = date.getMonth();
+                var y = date.getFullYear();
+
+                $('#calendar').fullCalendar({
+
+                    header: {
+                        locale: 'pt',
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay'
+                    },
+                    editable: true,
+                    droppable: true, // this allows things to be dropped onto the calendar
+                    drop: function() {
+                        // is the "remove after drop" checkbox checked?
+                        if ($('#drop-remove').is(':checked')) {
+                            // if so, remove the element from the "Draggable Events" list
+                            $(this).remove();
+                        }
+                    },
+                    events: [
+                        {
+                            title: 'All Day Event',
+                            start: new Date(y, m, 1)
+                        },
+                        {
+                            title: 'Long Event',
+                            start: new Date(y, m, d - 5),
+                            end: new Date(y, m, d - 2)
+                        },
+                        <?php
+                        foreach ((array)$response as $compromisso) :
+                        ?>
+                            {
+                                title: '<?= $compromisso['nome'] ?>',
+                                start:  '<?= $compromisso['data_compromisso'] ?>' ,
+                                <?php if ($compromisso['data_compromisso'] != $compromisso['data_final']) : ?>
+                                    end: '<?= $compromisso['data_final'] ?>',
+                                <?php endif; ?>
+                                url: '<?= URL_ADMIN ?>/calendario/editar/<?= $compromisso['id'] ?>'
+                            },
+                        <?php
+                        endforeach;
+                        ?>
+                    ]
+                });
+
+
             });
+            var calendar = new Calendar(calendarEl, {
 
+                eventClick: function(info) {
+                    alert('Event: ' + info.event.title);
+                    alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+                    alert('View: ' + info.view.type);
 
-            /* initialize the calendar
-             -----------------------------------------------------------------*/
-            var date = new Date();
-            var d = date.getDate();
-            var m = date.getMonth();
-            var y = date.getFullYear();
+                    // change the border color just for fun
+                    info.el.style.borderColor = 'red';
+                }
 
-            $('#calendar').fullCalendar({
-
-                header: {
-                    locale: 'pt',
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
-                },
-                editable: true,
-                droppable: true, // this allows things to be dropped onto the calendar
-                drop: function() {
-                    // is the "remove after drop" checkbox checked?
-                    if ($('#drop-remove').is(':checked')) {
-                        // if so, remove the element from the "Draggable Events" list
-                        $(this).remove();
-                    }
-                },
-                events: [{
-                        title: 'All Day Event',
-                        start: new Date(y, m, 1)
-                    },
-                    {
-                        title: 'Long Event',
-                        start: new Date(y, m, d - 5),
-                        end: new Date(y, m, d - 2)
-                    },
-                    {
-                        id: 999,
-                        title: 'Repeating Event',
-                        start: new Date(y, m, d - 3, 16, 0),
-                        allDay: false
-                    },
-                    {
-                        id: 999,
-                        title: 'Repeating Event',
-                        start: new Date(y, m, d + 4, 16, 0),
-                        allDay: false
-                    },
-                    {
-                        title: 'Meeting',
-                        start: new Date(y, m, d, 10, 30),
-                        allDay: false
-                    },
-                    {
-                        title: 'Lunch',
-                        start: new Date(y, m, d, 12, 0),
-                        end: new Date(y, m, d, 14, 0),
-                        allDay: false
-                    },
-                    {
-                        title: 'Birthday Party',
-                        start: new Date(y, m, d + 1, 19, 0),
-                        end: new Date(y, m, d + 1, 22, 30),
-                        allDay: false
-                    },
-                    {
-                        title: 'Click for Google',
-                        start: new Date(y, m, 28),
-                        end: new Date(y, m, 29),
-                        url: 'http://google.com/'
-                    }
-                ]
             });
-
-
-        });
-    </script>
+        </script>
 </body>
 
 </html>
