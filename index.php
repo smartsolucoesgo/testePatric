@@ -58,6 +58,9 @@ $Route->group('admin', function ($Route) {
         $Route->group('configuracoes', function ($Route) {
             $Route->crud('configuracao');
         });
+        $Route->group('calendario', function ($Route) {
+        $Route->crud('calendario');
+        });
 
     } else {
         \SmartSolucoes\Libs\Helper::view('admin/auth/login');
