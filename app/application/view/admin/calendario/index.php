@@ -121,7 +121,7 @@
                                                     <tr>
                                                         <td><?= $compromisso['nome'] ?></td>
                                                         <td><?=$compromisso['descricao']?></td>
-                                                        <td><?=$compromisso['data_compromisso']." ".implode("-",explode("/",date('Y-m-d')))?></td>
+                                                        <td><?=$compromisso['data_compromisso']?></td>
                                                         <td><?=$compromisso['horario']?></td>
                                                         <td>
                                                             <a href="<?= URL_ADMIN ?>/calendario/editar/<?= $compromisso['id'] ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
