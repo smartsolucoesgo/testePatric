@@ -16,6 +16,8 @@ class CalendarioController
     {
         $model = New Calendario();
         $response = $model->all('compromisso');
+        $response = $model->color($response);
+
         Helper::view($this->baseView.'/index',$response);
     }    
     public function viewEdit($param)

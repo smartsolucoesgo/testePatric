@@ -121,7 +121,7 @@
                                                     <tr>
                                                         <td><?= $compromisso['nome'] ?></td>
                                                         <td><?=$compromisso['descricao']?></td>
-                                                        <td><?=$compromisso['data_compromisso']?></td>
+                                                        <td><?=$compromisso['data_compromisso']." ".implode("-",explode("/",date('Y-m-d')))?></td>
                                                         <td><?=$compromisso['horario']?></td>
                                                         <td>
                                                             <a href="<?= URL_ADMIN ?>/calendario/editar/<?= $compromisso['id'] ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
@@ -240,9 +240,10 @@
                         ?>
                             {
                                 title: '<?= $compromisso['nome'] ?>',
-                                start:  '<?= $compromisso['data_compromisso'] ?>' ,
+                                start:  '<?=$compromisso['data_compromisso']." ".$compromisso['horario']?>' ,
                                 end: '<?= $compromisso['data_final'] ?>',
-                                url: '<?= URL_ADMIN ?>/calendario/editar/<?= $compromisso['id'] ?>'
+                                url: '<?= URL_ADMIN ?>/calendario/editar/<?= $compromisso['id'] ?>',
+                                backgroundColor: '<?= $compromisso['cor'] ?>',
                             },
                         <?php
                         endforeach;
