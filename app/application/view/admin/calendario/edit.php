@@ -35,7 +35,7 @@ require APP . 'view/admin/_templates/initFile.php';
                         <div class="col-lg-3">
                             <div class="form-group">
                                 <label>Nome</label>
-                                <input type="text" name="app_title" placeholder="" class="form-control" value="<?= isset($response['nome']) ? $response['nome'] : '' ?>" required>
+                                <input type="text" name="nome" placeholder="" class="form-control" value="<?= isset($response['nome']) ? $response['nome'] : '' ?>" required>
                             </div>
                         </div>
                         <div class="col-lg-3">
@@ -60,7 +60,7 @@ require APP . 'view/admin/_templates/initFile.php';
                         <div class="col-lg-3">
                             <div class="form-group">
                                 <label>Final</label>
-                                <input type="date" name="data_final" placeholder="" class="form-control" value="<?= isset($response['data_final']) ? $response['data_compromisso'] : '' ?>" required>
+                                <input type="date" name="data_final" placeholder="" class="form-control" value="<?= isset($response['data_final']) ? $response['data_final'] : '' ?>" required>
                             </div>
                         </div>
                         <div class="col-lg-3">

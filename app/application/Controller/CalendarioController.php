@@ -10,7 +10,7 @@ class CalendarioController
 
 	private $table = 'compromisso';
     private $baseView = 'admin/calendario';
-    private $urlIndex = 'compromisso';
+    private $urlIndex = 'calendario';
 
     public function index()
     {
@@ -23,6 +23,38 @@ class CalendarioController
         $model = New Calendario();
         $response = $model->find($this->table,$param['id']);
         Helper::view($this->baseView.'/edit',$response);
+    }
+
+    public function create()
+    {
+        $model = New Calendario();
+        foreach ($_POST as $key => $value) {
+            $test[$key] = $value;
+        }
+
+        $model->create($this->table,$test);
+        Helper::view($this->baseView.'/edit');
+    }
+
+    public function update()
+    {
+        $model = New Calendario();
+        if(@$_SESSION['acesso'] == 'Administrador') $_POST['id_update_user'] = $_SESSION['id_user'];
+        if($model->save($this->table,$_POST,['image'])) {
+            header('location: ' . URL_ADMIN . '/' . $this->urlIndex);
+        } else {
+            Helper::view($this->baseView.'/edit/'.$_POST['id']);
+        }
+    }
+    public function viewNew()
+    {
+        Helper::view($this->baseView.'/edit');
+    }
+    public function delete($param)
+    {
+        $model = New Calendario();
+        $model->delete($this->table,['id'],[$param['id']]);
+        header('location: ' . URL_ADMIN . '/' . $this->urlIndex);
     }
 }
 

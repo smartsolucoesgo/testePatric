@@ -102,7 +102,7 @@
                         <div class="ibox float-e-margins">
                             <div class="ibox-content" style="">
                                 <div id="external-events">
-                                    <a class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal">Novo Compromisso</a>
+                                    <a href="<?= URL_ADMIN ?>/calendario/novo" class="btn btn-primary ">Novo Compromisso</a>
                                     <div id='external-events-list'>
                                         <table class="table table-striped">
                                             <thead>
@@ -125,7 +125,8 @@
                                                         <td><?=$compromisso['horario']?></td>
                                                         <td>
                                                             <a href="<?= URL_ADMIN ?>/calendario/editar/<?= $compromisso['id'] ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
-                                                            <a href="<?= URL_ADMIN ?>/calendario/excluir/<?= $compromisso['id'] ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                                                            <a href="<?= URL_ADMIN ?>/calendario/remover/<?= $compromisso['id'] ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                                                        </td>
                                                     </tr>
                                                 <?php
                                                 endforeach;
@@ -240,9 +241,7 @@
                             {
                                 title: '<?= $compromisso['nome'] ?>',
                                 start:  '<?= $compromisso['data_compromisso'] ?>' ,
-                                <?php if ($compromisso['data_compromisso'] != $compromisso['data_final']) : ?>
-                                    end: '<?= $compromisso['data_final'] ?>',
-                                <?php endif; ?>
+                                end: '<?= $compromisso['data_final'] ?>',
                                 url: '<?= URL_ADMIN ?>/calendario/editar/<?= $compromisso['id'] ?>'
                             },
                         <?php
@@ -251,18 +250,6 @@
                     ]
                 });
 
-
-            });
-            var calendar = new Calendar(calendarEl, {
-
-                eventClick: function(info) {
-                    alert('Event: ' + info.event.title);
-                    alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-                    alert('View: ' + info.view.type);
-
-                    // change the border color just for fun
-                    info.el.style.borderColor = 'red';
-                }
 
             });
         </script>
