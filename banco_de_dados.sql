@@ -104,26 +104,33 @@ COMMIT;
 
 -- Estrutura da tabela `compromisso`
 
+-- jube.compromisso definition
+
 CREATE TABLE `compromisso` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `nome` mediumtext NOT NULL,
   `descricao` text DEFAULT NULL,
   `data_compromisso` date NOT NULL,
   `data_criacao` date DEFAULT NULL,
   `data_alteracao` date DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` tinyint(4) DEFAULT NULL,
+  `data_final` date DEFAULT NULL,
+  `horario` time DEFAULT NULL,
+  `id_update_user` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `compromisso_FK` (`user_id`),
   CONSTRAINT `compromisso_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=In
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Extraindo dados da tabela `compromisso`
 --
 
 INSERT INTO jube.compromisso
-(user_id, nome, descricao, data_compromisso, data_criacao, data_alteracao, id)
-VALUES(21, 'teste ', 'teste desc', '2023-01-05', '2023-12-01', '2023-12-01', 1);
+(user_id, nome, descricao, data_compromisso, data_criacao, data_alteracao, id, status, data_final, horario, id_update_user)
+VALUES(21, 'teste ', 'teste desc', '2023-01-05', '2023-12-01', '2023-12-01', 8, 1, '2023-02-05', '12:15:00', '21');
+
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
