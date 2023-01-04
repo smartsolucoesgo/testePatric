@@ -13,6 +13,7 @@ class HomeController
         if(@$_SESSION['acesso'] == 'Administrador' || @$_SESSION['acesso'] == 'Vendedor' || @$_SESSION['acesso'] == 'Financeiro') {
         header('location: ' . URL_ADMIN . '/inicio');
         } else {
+            header('location: ' . URL_ADMIN . '/inicio');
             Helper::view('admin/auth/login');
         }
 

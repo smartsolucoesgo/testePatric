@@ -21,7 +21,6 @@
         }
     }
     ?>
-
     <script src="/assets/admin/js/jquery-3.1.1.min.js"></script>
     <?php
     foreach ($script as $file) {
@@ -62,6 +61,9 @@
                 </li>
                 <li <?php if (stripos($_SERVER['REQUEST_URI'],'inicio') !== false) {echo 'class="active"';} ?>>
                     <a href="<?=URL_ADMIN?>"><i class="fal fa-tachometer-alt-fastest"></i> <span class="nav-label">Dashboard</span></a>
+                </li>
+                <li <?php if (stripos($_SERVER['REQUEST_URI'],'calendario') !== false) {echo 'class="active"';} ?>>
+                    <a href="<?=URL_ADMIN?>/calendario"><i class="fal fa-calendar-check"></i> <span class="nav-label">Compromissos</span> </a>
                 </li>
                 <li <?php if (stripos($_SERVER['REQUEST_URI'],'configuracoes') !== false) {echo 'class="active"';} ?>>
                     <a href="<?=URL_ADMIN?>/configuracoes"><i class="fal fa-cogs"></i> <span class="nav-label">Configurações do Sistema</span> </a>
