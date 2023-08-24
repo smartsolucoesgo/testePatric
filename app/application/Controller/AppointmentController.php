@@ -2,7 +2,6 @@
 
 namespace SmartSolucoes\Controller;
 
-use SmartSolucoes\Model\User;
 use SmartSolucoes\Libs\Helper;
 use SmartSolucoes\Model\Appointment;
 

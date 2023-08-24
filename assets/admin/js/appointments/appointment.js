@@ -50,33 +50,5 @@ $(document).ready(function () {
         calendar.fullCalendar("unselect");
       });
     },
-    eventDrop: function (event, delta) {
-      var start = $.fullCalendar.formatDate(event.start, "DD/MM/Y");
-      var end = $.fullCalendar.formatDate(event.end, "DD/MM/Y");
-
-      $.ajax({
-        url: "/admin/update-to-calendar",
-        data:
-          "title=" +
-          event.title +
-          "&start=" +
-          start +
-          "&end=" +
-          end +
-          "&id=" +
-          event.id,
-        type: "POST",
-        success: function (response) {
-          toastr.info("Esse Agendamento foi Atualizado");
-        },
-      });
-    },
   });
-
-  function displayMessage(message) {
-    $(".response").html("" + message + "");
-    setInterval(function () {
-      $(".success").fadeOut();
-    }, 1000);
-  }
 });

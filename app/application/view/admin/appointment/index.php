@@ -1,5 +1,5 @@
 <?php
-$title = ' - Painel de Controle';
+$title = 'Compromissos - Painel de Controle';
 $css = [
     'assets/admin/css/plugins/fullcalendar/fullcalendar.css',
 ];

@@ -31,7 +31,6 @@ class Appointment extends Model
 
     public function store($params)
     {
-
         $sql = sprintf("INSERT INTO %s (title,start,end,is_completed) VALUES (:title,:start,:end,:is_completed)", $this->table);
 
         $query = $this->PDO()->prepare($sql);
