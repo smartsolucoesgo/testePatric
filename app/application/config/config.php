@@ -1,13 +1,13 @@
 <?php
 define('DB_TYPE', 'mysql');
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'jube');
+define('DB_NAME', 'teste-smart');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_CHARSET', 'utf8');
 
-$bd = New \SmartSolucoes\Core\Model();
-$config = $bd->find('configuracao',1);
+$bd = new \SmartSolucoes\Core\Model();
+$config = $bd->find('configuracao', 1);
 
 if ($config['environment'] == 'Desenvolvimento') {
     error_reporting(E_ALL);
@@ -22,7 +22,7 @@ define('URL_PROTOCOL', $config['protocol']);
 define('URL_DOMAIN', $_SERVER['HTTP_HOST']);
 define('URL_PUBLIC', URL_PROTOCOL . URL_DOMAIN);
 define('URL_ADMIN', URL_PROTOCOL . URL_DOMAIN . '/admin');
-define('URL_PAGE', trim(URL_PUBLIC . $_SERVER['REQUEST_URI'],'/'));
+define('URL_PAGE', trim(URL_PUBLIC . $_SERVER['REQUEST_URI'], '/'));
 
 define('MAIL_HOST', $config['mail_host']);
 define('MAIL_AUTH', $config['mail_auth']);
