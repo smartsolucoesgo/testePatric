@@ -10,7 +10,7 @@ class Appointment extends Model
 
     public function findAll()
     {
-        $sql = "SELECT title,start_at,ends_at,is_completed from" . $this->table;
+        $sql = sprintf("SELECT title,start,end,is_completed from %s", $this->table);
 
         $query = $this->PDO()->prepare($sql);
         $query->execute();
@@ -20,7 +20,7 @@ class Appointment extends Model
 
     public function findOne($appointmentId)
     {
-        $sql = "SELECT title,start_at,ends_at,is_completed from" . $this->table;
+        $sql = "SELECT title,start,end,is_completed from" . $this->table;
         $sql .= "where id = :id";
 
         $query = $this->PDO()->prepare($sql);
@@ -29,15 +29,15 @@ class Appointment extends Model
         return $query->fetch();
     }
 
-    public function store(...$params)
+    public function store($params)
     {
-        $sql = "INSERT INTO {$this->table} title, start_at,ends_at,is_completed VALUES";
-        $sql .= "(:title,:start_at,:ends_at,:is_completed)";
+
+        $sql = sprintf("INSERT INTO %s (title,start,end,is_completed) VALUES (:title,:start,:end,:is_completed)", $this->table);
 
         $query = $this->PDO()->prepare($sql);
         $query->bindParam(":title", $params['title']);
-        $query->bindParam(":starts_at", $params['starts_at']);
-        $query->bindParam(":ends_at", $params['ends_at']);
+        $query->bindParam(":start", $params['start']);
+        $query->bindParam(":end", $params['end']);
         $query->bindParam(":is_completed", $params['is_completed']);
 
         return $query->execute();
@@ -45,12 +45,12 @@ class Appointment extends Model
 
     public function update($appointmentId, ...$params)
     {
-        $query = "UPDATE {$this->table} SET title = :title, start_at = :start_at, ends_at = :ends_at, is_completed = :is_completed WHERE id = :id";
+        $query = sprintf("UPDATE %s SET title = :title, start = :start, end = :end, is_completed = :is_completed WHERE id = :id", $this->table);
         $query = $this->PDO()->prepare($query);
 
         $query->bindParam(':title', $params['title']);
-        $query->bindParam(':start_at', $params['start_at']);
-        $query->bindParam(':ends_at', $params['ends_at']);
+        $query->bindParam(':start', $params['start']);
+        $query->bindParam(':end', $params['end']);
         $query->bindParam(':is_completed', $params['is_completed']);
         $query->bindParam(':id', $appointmentId);
 
@@ -59,7 +59,7 @@ class Appointment extends Model
 
     public function destroy($appointmentId)
     {
-        $query = "DELETE FROM {$this->table} WHERE id = :id";
+        $query = sprintf("DELETE FROM %s WHERE id = :id", $this->table);
         $query = $this->PDO()->prepare($query);
 
         $query->bindParam(':id', $appointmentId,);

@@ -36,7 +36,13 @@ $Route->post('newpassword', 'AuthController@newpassword');
 
 // TODO: ############
 $Route->group2('ajax', function () {
-    \SmartSolucoes\Libs\Helper::ajax($_POST['controller'], $_POST['action'], $_POST['param']);
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+
+        \SmartSolucoes\Libs\Helper::ajax($_GET['controller'], $_GET['action'], $_GET['param']);
+    } else {
+
+        \SmartSolucoes\Libs\Helper::ajax($_POST['controller'], $_POST['action'], $_POST['param']);
+    }
     exit();
 });
 

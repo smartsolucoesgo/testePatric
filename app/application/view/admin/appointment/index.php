@@ -1,7 +1,14 @@
 <?php
 $title = ' - Painel de Controle';
-$css = [];
-$script = [];
+$css = [
+    'assets/admin/css/plugins/fullcalendar/fullcalendar.css',
+];
+$script = [
+    'assets/admin/js/plugins/fullcalendar/moment.min.js',
+    'assets/admin/js/plugins/fullcalendar/fullcalendar.min.js',
+    'assets/admin/js/appointments/appointment.js'
+];
+
 require APP . 'view/admin/_templates/initFile.php';
 ?>
 
@@ -12,12 +19,18 @@ require APP . 'view/admin/_templates/initFile.php';
                 <h1>
                     Painel do Sistema - <?= APP_TITLE ?>
                 </h1>
-                <h2>Mostrar Calendario</h2>
+
+            </div>
+        </div>
+        <div class="col-lg-12 h-full">
+            <div class="ibox-content h-full">
+                <div id="calendar"></div>
             </div>
         </div>
     </div>
 </div>
 
 <?php
+require APP . 'view/admin/appointment/_includes/modal-appointment.php';
 require APP . 'view/admin/_templates/endFile.php';
 ?>
