@@ -17,34 +17,42 @@ $url = \SmartSolucoes\Libs\Helper::splitUrl();
 
 session_cache_expire(300);
 session_start();
+
 use SmartSolucoes\Core\Route;
-$Route = New Route($url);
+
+$Route = new Route($url);
 
 $Route->view('', 'admin/auth/login');
 
 // FIM DAS ROTAS DO SITE //
 
-$Route->post('login','AuthController@login');
-$Route->get('logout','AuthController@logout');
+$Route->post('login', 'AuthController@login');
+$Route->get('logout', 'AuthController@logout');
 
-$Route->view('forgot','admin/auth/forgot');
-$Route->post('forgot','AuthController@forgot');
-$Route->get('remember','AuthController@remember','session');
-$Route->post('newpassword','AuthController@newpassword');
+$Route->view('forgot', 'admin/auth/forgot');
+$Route->post('forgot', 'AuthController@forgot');
+$Route->get('remember', 'AuthController@remember', 'session');
+$Route->post('newpassword', 'AuthController@newpassword');
 
 // TODO: ############
 $Route->group2('ajax', function () {
-    \SmartSolucoes\Libs\Helper::ajax($_POST['controller'],$_POST['action'],$_POST['param']);
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+
+        \SmartSolucoes\Libs\Helper::ajax($_GET['controller'], $_GET['action'], $_GET['param']);
+    } else {
+
+        \SmartSolucoes\Libs\Helper::ajax($_POST['controller'], $_POST['action'], $_POST['param']);
+    }
     exit();
 });
 
 
 $Route->group('admin', function ($Route) {
 
-    if(@$_SESSION['acesso'] == 'Administrador' || @$_SESSION['acesso'] == 'Vendedor' || @$_SESSION['acesso'] == 'Financeiro') {
+    if (@$_SESSION['acesso'] == 'Administrador' || @$_SESSION['acesso'] == 'Vendedor' || @$_SESSION['acesso'] == 'Financeiro') {
 
-        $Route->get('','HomeController@vazio'); // Mudar no Controller caso tenha acessos diferentes
-        $Route->get('inicio','HomeController@admin');
+        $Route->get('', 'HomeController@vazio'); // Mudar no Controller caso tenha acessos diferentes
+        $Route->get('inicio', 'HomeController@admin');
 
         $Route->group('account', function ($Route) {
             $Route->get('', 'AuthController@account');
@@ -55,17 +63,19 @@ $Route->group('admin', function ($Route) {
             $Route->crud('user');
         });
 
+        $Route->group('appointments', function ($Route) {
+            $Route->crud('appointment');
+        });
+
         $Route->group('configuracoes', function ($Route) {
             $Route->crud('configuracao');
         });
-
     } else {
         \SmartSolucoes\Libs\Helper::view('admin/auth/login');
     }
-
 });
 
-if(@$_SESSION['acesso'] == 'Administrador' || @$_SESSION['acesso'] == 'Vendedor' || @$_SESSION['acesso'] == 'Financeiro') {
+if (@$_SESSION['acesso'] == 'Administrador' || @$_SESSION['acesso'] == 'Vendedor' || @$_SESSION['acesso'] == 'Financeiro') {
 } else {
     \SmartSolucoes\Libs\Helper::view('site/home/404');
 }
