@@ -60,10 +60,17 @@
                         IN+
                     </div>
                 </li>
-                <li <?php if (stripos($_SERVER['REQUEST_URI'],'inicio') !== false) {echo 'class="active"';} ?>>
+                <li class="<?= \SmartSolucoes\Libs\Helper::activeMenu('inicio') ?>">
                     <a href="<?=URL_ADMIN?>"><i class="fal fa-tachometer-alt-fastest"></i> <span class="nav-label">Dashboard</span></a>
                 </li>
-                <li <?php if (stripos($_SERVER['REQUEST_URI'],'configuracoes') !== false) {echo 'class="active"';} ?>>
+
+                <li class="<?= \SmartSolucoes\Libs\Helper::activeMenu('calendario') ?>">
+                    <a href="<?= URL_ADMIN ?>/calendario">
+                        <i class="fal fa-solid fa-calendar"></i> <span class="nav-label">Calendário</span>
+                    </a>
+                </li>
+
+                <li class="<?= \SmartSolucoes\Libs\Helper::activeMenu('configuracoes') ?>">
                     <a href="<?=URL_ADMIN?>/configuracoes"><i class="fal fa-cogs"></i> <span class="nav-label">Configurações do Sistema</span> </a>
                 </li>
             </ul>
