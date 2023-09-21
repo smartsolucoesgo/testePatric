@@ -1,7 +1,7 @@
 <?php
 define('DB_TYPE', 'mysql');
 define('DB_HOST', 'database');
-define('DB_NAME', 'project');
+define('DB_NAME', 'root');
 define('DB_USER', 'root');
 define('DB_PASS', 'root');
 define('DB_CHARSET', 'utf8');
