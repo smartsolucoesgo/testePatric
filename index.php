@@ -59,6 +59,13 @@ $Route->group('admin', function ($Route) {
             $Route->crud('configuracao');
         });
 
+        $Route->group('calendario', function ($Route) {
+            $Route->get('', 'CalendarioController@index');
+            $Route->get('listar', 'CalendarioController@listar');
+            $Route->post('salvar', 'CalendarioController@create');
+            $Route->get('deletar', 'CalendarioController@deletar');
+        });
+
     } else {
         \SmartSolucoes\Libs\Helper::view('admin/auth/login');
     }

@@ -94,7 +94,7 @@ class Model
         $query->execute([':id' => $id]);
     }
 
-    public function all($table, $order = 'id', $field = false, $value = false)
+    public function all($table, $order = 'id', $field = false, $value = false, $orderBy = 'id')
     {
 
         $where = '';
@@ -105,7 +105,7 @@ class Model
         } elseif($field) {
             $where = "AND " . $field . " = '" . $value . "'";
         }
-        $sql = "SELECT * FROM " . $table . " WHERE 1=1 " . $where . " ORDER BY status DESC, " . $order;
+        $sql = "SELECT * FROM " . $table . " WHERE 1=1 " . $where . " ORDER BY {$orderBy} DESC, " . $order;
         $query = $this->PDO()->prepare($sql);
         $query->execute();
         return $query->fetchAll();
