@@ -26,6 +26,18 @@ class Helper {
     require APP . 'view/' . $view . '.php';
   }
 
+  static public function response() {
+    return new class {
+        public function json($data = [], $code = 200) {
+            header('Content-Type: application/json');
+            http_response_code($code);
+            echo json_encode($data);
+            exit;
+        }
+    };
+}
+
+
   static public function ajax($nomecontroller, $action, $param) {
     $getController = '\SmartSolucoes\Controller\\' . $nomecontroller . 'Controller';
     $controller = new $getController();
